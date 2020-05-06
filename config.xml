@@ -3,14 +3,14 @@
     <metadata>
         <name>ShibbolethAuthLime</name>
         <type>plugin</type>
-        <creationDate>2020-04-04</creationDate>
-        <last_update>2020-04-04</last_update>
+        <creationDate>2020-05-04</creationDate>
+        <last_update>2020-05-06</last_update>
         <author>Leandro Campos</author>
         <authorEmail>leandrobhbr@gmail.com</authorEmail>
-        <authorUrl>-</authorUrl>
+        <authorUrl>https://github.com/leandrobhbr/ShibbolethAuthLimeSurvey/</authorUrl>
         <version>1.0.0</version>
-        <license>GNU General Public License version 2 or later</license>
-        <description><![CDATA[LimeSurvey Shibboleth auth plugin to LimeSurvey 4.]]></description>
+        <license>GNU General Public License version 3 or later</license>
+        <description><![CDATA[LimeSurvey Shibboleth auth plugin to LimeSurvey 4+.]]></description>
     </metadata>
 
     <compatibility>

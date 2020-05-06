@@ -1,5 +1,12 @@
 <?php
 
+# Only for test - needs to be the same as the plugin settings page in the administrative
+$_SERVER['Shib-Person-UID']="leandrobhbr";
+$_SERVER['Shib-InetOrgPerson-givenName']="Leandro";
+$_SERVER['Shib-Person-surname']="Campos";
+$_SERVER['Ship-Person-Mail']="leandrobhbr@gmail.com";
+# end test
+
 class ShibbolethAuthLime extends AuthPluginBase {
 
     protected $storage = 'DbStorage';
@@ -58,103 +65,79 @@ class ShibbolethAuthLime extends AuthPluginBase {
 		$this->subscribe('afterLogout','afterLogout');
     }
 
-    public function beforeLogin() {
+    public function beforeLogin(){
 
 		$authuserid = $this->get('authuserid');
 		$authusergivenName = $this->get('authusergivenName');
 		$authusergivenSurname = $this->get('authusergivenSurname');
-		$mailattribute = $this->get('mailattribute');
+        $mailattribute = $this->get('mailattribute');
+        if(empty($authuserid) && empty($_SERVER[$authuserid])) { return; } // not login by shiboleth
 
-		if (!empty($authuserid) && isset($_SERVER[$authuserid]))
-		{
-			$sUser=$_SERVER[$authuserid];
+         // Possible mapping of users to a different identifier
+         $aUserMappings=$this->api->getConfigKey('auth_webserver_user_map', array());
+         $sUser = isset($aUserMappings[$sUser]) ? $aUserMappings[$sUser] : $_SERVER[$authuserid];
 
-			// Possible mapping of users to a different identifier
-			$aUserMappings=$this->api->getConfigKey('auth_webserver_user_map', array());
-            if (isset($aUserMappings[$sUser]))
-            {
-               $sUser = $aUserMappings[$sUser];
-            }
-
-			// If is set "autocreateuser" option then create the new user
-            if($this->get('autocreateuser',null,null,$this->settings['autocreateuser']['default']))
-            {
-                $this->setUsername($sUser);
-				$this->displayName = $_SERVER[$authusergivenName].' '.$_SERVER[$authusergivenSurname];
-
-				if($_SERVER[$mailattribute] && $_SERVER[$mailattribute] != '')
-				{
-					$this->mail = $_SERVER[$mailattribute];
-				}
-				else $this->mail = 'noreply@my.example.com';
-
-                $this->setAuthPlugin(); // This plugin handles authentication, halt further execution of auth plugins
-            }
-            elseif($this->get('is_default',null,null,$this->settings['is_default']['default']))
-            {
-                throw new CHttpException(401,'Wrong credentials for LimeSurvey administration: "' . $sUser . '".');
-            }
-		}
+         // If is set "autocreateuser" in page admin settings - option then create the new user
+         if($this->get('autocreateuser',null,null,$this->settings['autocreateuser']['default']))
+         {
+             $this->setUsername($sUser);
+             $this->displayName = $_SERVER[$authusergivenName].' '.$_SERVER[$authusergivenSurname];
+             $this->mail = ($_SERVER[$mailattribute] && $_SERVER[$mailattribute] != '') ? $_SERVER[$mailattribute] : 'noreply@my.example.com';
+             $this->setAuthPlugin(); // This plugin handles authentication, halt further execution of auth plugins
+         }
+         elseif($this->get('is_default',null,null,$this->settings['is_default']['default']))
+         {
+             throw new CHttpException(401,'Wrong credentials for LimeSurvey administration: "' . $sUser . '".');
+         }
     }
 
-    public function newUserSession() {
+    public function newUserSession(){
 
         $sUser = $this->getUserName();
         $oUser = $this->api->getUserByName($sUser);
+        // The user alredy exists - can login with success
+        if(!empty($oUser)) { $this->setAuthSuccess($oUser); return; }
 
-        if (is_null($oUser)) {
-            // Create new user
-            $name = $sUser;
-            $email = $this->mail;
-            // generate aleatory password
-            $password = date('YmdHis').rand(0,1000);
-            $oUser = new User;
-            $oUser->users_name = $name;
-            $oUser->full_name = $name;
-            $oUser->email = $email;
-            $oUser->parent_id = 1;
-            $oUser->created = date('Y-m-d H:i:s');
-            $oUser->modified = date('Y-m-d H:i:s');
-            $oUser->password = password_hash($password, PASSWORD_DEFAULT);
-
-            if ($oUser->save()) {
-
-                if ($this->get('permission_create_survey', null, null, false)) {
-                    $permission = new Permission;
-                    $permission->entity_id = 0;
-                    $permission->entity = 'global';
-                    $permission->uid = $oUser->uid;
-                    $permission->permission = 'surveys';
-                    $permission->create_p = 1;
-                    $permission->read_p = 0;
-                    $permission->update_p = 0;
-                    $permission->delete_p = 0;
-                    $permission->import_p = 0;
-                    $permission->export_p = 0;
-                    $permission->save();
-                }
-                $this->setAuthSuccess($oUser);
-                return;
-            } else {
-                $this->setAuthFailure(self::ERROR_USERNAME_INVALID);
-                return;
-            }
-
-            return;
-        } else { // The user alredy exists
-            $this->setAuthSuccess($oUser);
+        // OR Create new user
+        $name = $sUser;
+        $email = $this->mail;
+        // generate aleatory password
+        $password = date('YmdHis').rand(0,1000);
+        $oUser = new User;
+        $oUser->users_name = $name;
+        $oUser->full_name = $name;
+        $oUser->email = $email;
+        $oUser->parent_id = 1;
+        $oUser->created = date('Y-m-d H:i:s');
+        $oUser->modified = date('Y-m-d H:i:s');
+        $oUser->password = password_hash($password, PASSWORD_DEFAULT);
+        if (!$oUser->save()) { $this->setAuthFailure(self::ERROR_USERNAME_INVALID); return; }
+        // need permission? it is settings of plugin - by admin page
+        if ($this->get('permission_create_survey', null, null, false)) {
+            $permission = new Permission;
+            $permission->entity_id = 0;
+            $permission->entity = 'global';
+            $permission->uid = $oUser->uid;
+            $permission->permission = 'surveys';
+            $permission->create_p = 1;
+            $permission->read_p = 0;
+            $permission->update_p = 0;
+            $permission->delete_p = 0;
+            $permission->import_p = 0;
+            $permission->export_p = 0;
+            $permission->save();
         }
+        $this->setAuthSuccess($oUser);
+        return;
     }
 
-	public function afterLogout()
-    {
-		$logoffurl = $this->get('logoffurl');
+	public function afterLogout(){
 
-		if (!empty($logoffurl))
-		{
-			// Logout Shibboleth
-			header("Location: " . $logoffurl);
-			die();
-		}
+       $logoffurl = $this->get('logoffurl');
+       if (!empty($logoffurl)){
+            // Logout Shibboleth
+            header("Location: " . $logoffurl);
+            die();
+       }
     }
 }
