@@ -25,7 +25,7 @@ git clone https://github.com/leandrobhbr/LimeSurvey-ShibbolethAuthLime.git .
 ```
 ## ACTIVATE PLUGIN FROM ADMIN PANEL
 
-Now you can activate and configure the new installed plugin
+Now you can activate and configure the new installed plugin. Don't forget: in tab "settings" of plugin inform the 5 parameters.
 
 ## CONFIGURE APACHE2 FOR SHIBBOLETH AUTHENTICATION
 
