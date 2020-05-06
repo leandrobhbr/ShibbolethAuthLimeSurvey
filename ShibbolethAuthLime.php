@@ -1,10 +1,10 @@
 <?php
 
 # Only for test - needs to be the same as the plugin settings page in the administrative
-$_SERVER['Shib-Person-UID']="leandrobhbr";
-$_SERVER['Shib-InetOrgPerson-givenName']="Leandro";
-$_SERVER['Shib-Person-surname']="Campos";
-$_SERVER['Ship-Person-Mail']="leandrobhbr@gmail.com";
+#$_SERVER['Shib-Person-UID']="leandrobhbr";
+#$_SERVER['Shib-InetOrgPerson-givenName']="Leandro";
+#$_SERVER['Shib-Person-surname']="Campos";
+#$_SERVER['Ship-Person-Mail']="leandrobhbr@gmail.com";
 # end test
 
 class ShibbolethAuthLime extends AuthPluginBase {
@@ -35,12 +35,12 @@ class ShibbolethAuthLime extends AuthPluginBase {
             'type' => 'string',
             'label' => 'Shibboleth attribute of User email address (eg. mail)',
             'default' => 'mail',
-		),
+	),
             'logoffurl' => array(
             'type' => 'string',
             'label' => 'Redirecting url after LogOff',
             'default' => 'https://my.example.com/Account/Logoff',
-		),
+	),
             'is_default' => array(
             'type' => 'checkbox',
             'label' => 'Check to make default authentication method (this disable Default LimeSurvey authentification by database)',
@@ -62,14 +62,14 @@ class ShibbolethAuthLime extends AuthPluginBase {
 
         $this->subscribe('beforeLogin','beforeLogin');
         $this->subscribe('newUserSession','newUserSession');
-		$this->subscribe('afterLogout','afterLogout');
+	$this->subscribe('afterLogout','afterLogout');
     }
 
     public function beforeLogin(){
 
-		$authuserid = $this->get('authuserid');
-		$authusergivenName = $this->get('authusergivenName');
-		$authusergivenSurname = $this->get('authusergivenSurname');
+	$authuserid = $this->get('authuserid');
+	$authusergivenName = $this->get('authusergivenName');
+	$authusergivenSurname = $this->get('authusergivenSurname');
         $mailattribute = $this->get('mailattribute');
         if(empty($authuserid) && empty($_SERVER[$authuserid])) { return; } // not login by shiboleth
 
@@ -131,7 +131,7 @@ class ShibbolethAuthLime extends AuthPluginBase {
         return;
     }
 
-	public function afterLogout(){
+    public function afterLogout(){
 
        $logoffurl = $this->get('logoffurl');
        if (!empty($logoffurl)){
