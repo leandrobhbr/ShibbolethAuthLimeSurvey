@@ -1,12 +1,5 @@
 <?php
 
-# Only for test
-#$_SERVER['Shib-Person-UID']="leandocampos";
-#$_SERVER['Shib-InetOrgPerson-givenName']="Leandro Campos";
-#$_SERVER['Shib-Person-surname']="Leandro Campos";
-#$_SERVER['Ship-Person-Mail']="leandrocampos@ufmg.br";
-
-
 class ShibbolethAuthLime extends AuthPluginBase {
 
     protected $storage = 'DbStorage';
@@ -70,7 +63,6 @@ class ShibbolethAuthLime extends AuthPluginBase {
 		// Do nothing if this user is not ShibbolethAuth type
         $identity = $this->getEvent()->get('identity');
         $pluginType = $identity->plugin;
-        #$pluginType = 'ShibbolethAuth'; // force test
 		if ($pluginType != 'ShibbolethAuth')
 		{
             $msg="identity->plugin: need be ShibbolethAuth. Is how {$identity->plugin}";
