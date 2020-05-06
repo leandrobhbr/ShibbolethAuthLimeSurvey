@@ -9,7 +9,7 @@ class ShibbolethAuthLime extends AuthPluginBase {
     public $mail = '';
     public $displayName = '';
     protected $settings = array(
-			'authuserid' => array(
+            'authuserid' => array(
             'type' => 'string',
             'label' => 'Shibboleth attribute of User ID (eg. eduPersonPrincipalName)',
             'default' => 'eduPersonPrincipalName',
@@ -58,17 +58,7 @@ class ShibbolethAuthLime extends AuthPluginBase {
 		$this->subscribe('afterLogout','afterLogout');
     }
 
-
     public function beforeLogin() {
-		// Do nothing if this user is not ShibbolethAuth type
-        $identity = $this->getEvent()->get('identity');
-        $pluginType = $identity->plugin;
-		if ($pluginType != 'ShibbolethAuth')
-		{
-            $msg="identity->plugin: need be ShibbolethAuth. Is how {$identity->plugin}";
-            echo "<script>alert('$msg')</script>";
-            return;
-        }
 
 		$authuserid = $this->get('authuserid');
 		$authusergivenName = $this->get('authusergivenName');
@@ -108,12 +98,12 @@ class ShibbolethAuthLime extends AuthPluginBase {
     }
 
     public function newUserSession() {
+
         $sUser = $this->getUserName();
         $oUser = $this->api->getUserByName($sUser);
 
         if (is_null($oUser)) {
             // Create new user
-
             $name = $sUser;
             $email = $this->mail;
             // generate aleatory password
@@ -167,7 +157,4 @@ class ShibbolethAuthLime extends AuthPluginBase {
 			die();
 		}
     }
-
 }
-
-
