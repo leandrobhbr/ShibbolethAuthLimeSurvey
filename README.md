@@ -1,4 +1,4 @@
-# ShibbolethAuthLimeSurvey
+# ShibbolethAuthLimeSurvey di massimo
 
 This plugin is a copy of code made for previous versions. I adapted it for version 4 of LimeSurvey. Thanks for the source: https://github.com/atlet/LimeSurvey-ShibbolethAuth
 
