@@ -77,8 +77,9 @@ class ShibbolethAuthLime extends AuthPluginBase {
          $aUserMappings=$this->api->getConfigKey('auth_webserver_user_map', array());
          $sUser = isset($aUserMappings[$sUser]) ? $aUserMappings[$sUser] : $_SERVER[$authuserid];
 
-         // If is set "autocreateuser" in page admin settings - option then create the new user
-         if($this->get('autocreateuser',null,null,$this->settings['autocreateuser']['default']))
+//set Shib var if is set "autocreateuser" (option then create the new user) or if not set "autocreateuser" (option then doesn't create the new user)
+         $autocreateuser = ( $autocreateuser === null || trim($autocreateuser) === '' ) ? 'autocreateuser' : $autocreateuser ;
+         if($this->get($autocreateuser,null,null,$this->settings['autocreateuser']['default']))
          {
              $this->setUsername($sUser);
              $this->displayName = $_SERVER[$authusergivenName].' '.$_SERVER[$authusergivenSurname];

@@ -1,4 +1,4 @@
-# ShibbolethAuthLimeSurvey
+# ShibbolethAuthLimeSurvey di massimo
 
 This plugin is a copy of code made for previous versions. I adapted it for version 4 of LimeSurvey. Thanks for the source: https://github.com/atlet/LimeSurvey-ShibbolethAuth
 
@@ -20,7 +20,7 @@ To install this plugin you have to create a folder "ShibbolethAuthLime" into fol
 ```bash
 cd /var/www/limesurvey/plugins
 mkdir ShibbolethAuthLime
-cd ShibbolethAuth
+cd ShibbolethAuthLime
 git clone https://github.com/leandrobhbr/LimeSurvey-ShibbolethAuthLime.git .
 ```
 ## ACTIVATE PLUGIN FROM ADMIN PANEL
@@ -29,7 +29,7 @@ Now you can activate and configure the new installed plugin. Don't forget: in ta
 
 ## CONFIGURE APACHE2 FOR SHIBBOLETH AUTHENTICATION
 
-You have two alternatives: 
+You have two alternatives:
 
 **Protect frontend and admin panel with Shibboleth**
 To protect frontend and admin panel you can add the following to apache2 configuration:
@@ -49,7 +49,7 @@ With this method you will be able to protect only the admin panel, add the follo
              ShibRequireSession On
              require valid-user
    </Location>
-   
+
    <Location />
              AuthType shibboleth
              ShibRequestSetting requireSession false
