@@ -1,10 +1,10 @@
 <?php
 
 # Only for test - needs to be the same as the plugin settings page in the administrative
-#$_SERVER['Shib-Person-UID']="leandrobhbr";
-#$_SERVER['Shib-InetOrgPerson-givenName']="Leandro";
-#$_SERVER['Shib-Person-surname']="Campos";
-#$_SERVER['Ship-Person-Mail']="leandrobhbr@gmail.com";
+#$_SERVER['Shib-Person-UID']="massimo.berva";
+#$_SERVER['Shib-InetOrgPerson-givenName']="Massimo";
+#$_SERVER['Shib-Person-surname']="Berva";
+#$_SERVER['Shib-Person-Mail']="massimo.berva@unibg.it";
 # end test
 
 class ShibbolethAuthLime extends AuthPluginBase {
@@ -35,12 +35,13 @@ class ShibbolethAuthLime extends AuthPluginBase {
             'type' => 'string',
             'label' => 'Shibboleth attribute of User email address (eg. mail)',
             'default' => 'mail',
-	),
+		),
             'logoffurl' => array(
             'type' => 'string',
             'label' => 'Redirecting url after LogOff',
-            'default' => 'https://my.example.com/Account/Logoff',
-	),
+            //'default' => 'https://my.example.com/Account/Logoff',
+            'default' => 'https://www.unibg.it',
+		),
             'is_default' => array(
             'type' => 'checkbox',
             'label' => 'Check to make default authentication method (this disable Default LimeSurvey authentification by database)',
@@ -59,43 +60,62 @@ class ShibbolethAuthLime extends AuthPluginBase {
     );
 
     public function init(){
+		/* only test
+        $fd = fopen("/var/www/vhost/sia.unibg.it/a.a","w");
+        fwrite($fd,"PASSATO NELLA INIT\n");
+        fclose($fd);
+        */
 
         $this->subscribe('beforeLogin','beforeLogin');
         $this->subscribe('newUserSession','newUserSession');
-	$this->subscribe('afterLogout','afterLogout');
+	      $this->subscribe('afterLogout','afterLogout');
     }
 
     public function beforeLogin(){
 
-	$authuserid = $this->get('authuserid');
-	$authusergivenName = $this->get('authusergivenName');
-	$authusergivenSurname = $this->get('authusergivenSurname');
-        $mailattribute = $this->get('mailattribute');
+		$authuserid = $this->get('authuserid');
+		$authusergivenName = $this->get('authusergivenName');
+		$authusergivenSurname = $this->get('authusergivenSurname');
+    $mailattribute = $this->get('mailattribute');
+
         if(empty($authuserid) && empty($_SERVER[$authuserid])) { return; } // not login by shiboleth
 
          // Possible mapping of users to a different identifier
          $aUserMappings=$this->api->getConfigKey('auth_webserver_user_map', array());
          $sUser = isset($aUserMappings[$sUser]) ? $aUserMappings[$sUser] : $_SERVER[$authuserid];
 
-//set Shib var if is set "autocreateuser" (option then create the new user) or if not set "autocreateuser" (option then doesn't create the new user)
-         $autocreateuser = ( $autocreateuser === null || trim($autocreateuser) === '' ) ? 'autocreateuser' : $autocreateuser ;
-         if($this->get($autocreateuser,null,null,$this->settings['autocreateuser']['default']))
+	 $autocreateuser = ( $autocreateuser === null || trim($autocreateuser) === '' ) ? 'autocreateuser' : $autocreateuser ;
+	 /* autocreate TRUE */
+if($this->get($autocreateuser,null,null,$this->settings['autocreateuser']['default']))
          {
              $this->setUsername($sUser);
              $this->displayName = $_SERVER[$authusergivenName].' '.$_SERVER[$authusergivenSurname];
-             $this->mail = ($_SERVER[$mailattribute] && $_SERVER[$mailattribute] != '') ? $_SERVER[$mailattribute] : 'noreply@my.example.com';
+             $this->mail = ($_SERVER[$mailattribute] && $_SERVER[$mailattribute] != '') ? $_SERVER[$mailattribute] : 'noreply@unibg.it';
              $this->setAuthPlugin(); // This plugin handles authentication, halt further execution of auth plugins
          }
          elseif($this->get('is_default',null,null,$this->settings['is_default']['default']))
          {
-             throw new CHttpException(401,'Wrong credentials for LimeSurvey administration: "' . $sUser . '".');
-         }
+		 throw new CHttpException(401,'Wrong credentials for LimeSurvey administration: "' . $sUser . '".');
+
+	 /* autocreate FALSE */
+	 } else {
+             $this->setUsername($sUser);
+             $this->displayName = $_SERVER[$authusergivenName].' '.$_SERVER[$authusergivenSurname];
+        $this->setAuthPlugin(); // This plugin handles authentication, halt further execution of auth plugins
+	 }
+
     }
 
     public function newUserSession(){
 
         $sUser = $this->getUserName();
         $oUser = $this->api->getUserByName($sUser);
+		/* only test
+        $fd = fopen("/var/www/vhost/sia.unibg.it/a.a","a");
+        $LogEntry1 = $oUser;
+        fwrite($fd,"oUser = $LogEntry1\n");
+        fclose($fd);
+        */
         // The user alredy exists - can login with success
         if(!empty($oUser)) { $this->setAuthSuccess($oUser); return; }
 
@@ -132,7 +152,7 @@ class ShibbolethAuthLime extends AuthPluginBase {
         return;
     }
 
-    public function afterLogout(){
+	public function afterLogout(){
 
        $logoffurl = $this->get('logoffurl');
        if (!empty($logoffurl)){
