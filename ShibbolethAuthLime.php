@@ -5,7 +5,7 @@
 #$_SERVER['Shib-InetOrgPerson-givenName']="<givenName>";
 #$_SERVER['Shib-Person-surname']="<SN>";
 #$_SERVER['Shib-Person-Mail']="<MAIL>";
-# end test
+# end test 
 
 class ShibbolethAuthLime extends AuthPluginBase {
 
