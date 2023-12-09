@@ -8,6 +8,7 @@
         <author>Leandro Campos</author>
         <authorEmail>leandrobhbr@gmail.com</authorEmail>
         <authorUrl>https://github.com/leandrobhbr/ShibbolethAuthLimeSurvey/</authorUrl>
+        <supportUrl>https://github.com/leandrobhbr/ShibbolethAuthLimeSurvey/</supportUrl>
         <version>1.0.0</version>
         <license>GNU General Public License version 3 or later</license>
         <description><![CDATA[LimeSurvey Shibboleth auth plugin to LimeSurvey 4+.]]></description>
