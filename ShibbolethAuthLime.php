@@ -1,10 +1,10 @@
 <?php
 
 # Only for test - needs to be the same as the plugin settings page in the administrative
-#$_SERVER['Shib-Person-UID']="massimo.berva";
-#$_SERVER['Shib-InetOrgPerson-givenName']="Massimo";
-#$_SERVER['Shib-Person-surname']="Berva";
-#$_SERVER['Shib-Person-Mail']="massimo.berva@unibg.it";
+#$_SERVER['Shib-Person-UID']="<UID>";
+#$_SERVER['Shib-InetOrgPerson-givenName']="<givenName>";
+#$_SERVER['Shib-Person-surname']="<SN>";
+#$_SERVER['Shib-Person-Mail']="<MAIL>";
 # end test
 
 class ShibbolethAuthLime extends AuthPluginBase {
@@ -99,8 +99,8 @@ if($this->get($autocreateuser,null,null,$this->settings['autocreateuser']['defau
 
 	 /* autocreate FALSE */
 	 } else {
-             $this->setUsername($sUser);
-             $this->displayName = $_SERVER[$authusergivenName].' '.$_SERVER[$authusergivenSurname];
+        $this->setUsername($sUser);
+        $this->displayName = $_SERVER[$authusergivenName].' '.$_SERVER[$authusergivenSurname];
         $this->setAuthPlugin(); // This plugin handles authentication, halt further execution of auth plugins
 	 }
 
