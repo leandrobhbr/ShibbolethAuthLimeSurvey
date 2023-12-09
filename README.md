@@ -1,4 +1,4 @@
-# ShibbolethAuthLimeSurvey di massimo
+# ShibbolethAuthLimeSurvey
 
 This plugin is a copy of code made for previous versions. I adapted it for version 4 of LimeSurvey. Thanks for the source: https://github.com/atlet/LimeSurvey-ShibbolethAuth
 
@@ -25,7 +25,7 @@ git clone https://github.com/leandrobhbr/LimeSurvey-ShibbolethAuthLime.git .
 ```
 ## ACTIVATE PLUGIN FROM ADMIN PANEL
 
-Now you can activate and configure the new installed plugin. Don't forget: in tab "settings" of plugin inform the 5 parameters.
+Now you can activate and configure the new installed plugin
 
 ## CONFIGURE APACHE2 FOR SHIBBOLETH AUTHENTICATION
 
