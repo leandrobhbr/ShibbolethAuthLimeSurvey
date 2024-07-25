@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed in 1.0.2
 
 * Changed [ShibbolethAuthLime.php](ShibbolethAuthLime.php) by running `./vendor/bin/rector process`
+* Fix invalid version number in [config.xml](config.xml)
 
 ## [1.0.1](https://github.com/stevleibelt/ShibbolethAuthLimeSurvey/tree/1.0.1) - 20240725
 
