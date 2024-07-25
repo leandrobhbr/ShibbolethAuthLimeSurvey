@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added in unreleased
 
+* Added missing contributors from the source branches of [atlet](https://github.com/atlet/LimeSurvey-ShibbolethAuth) and [leandrobhbr](https://github.com/leandrobhbr/ShibbolethAuthLimeSurvey)
 
 ### Changed in unreleased
 

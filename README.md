@@ -87,6 +87,11 @@ composer check
 ## Contributers
 
 * [atlet](https://github.com/atlet)
+* [cappe87](https://github.com/cappe87)
+* [giovannilicari](https://github.com/giovannilicari)
 * [leandrobhbr](https://github.com/leandrobhbr)
+* [mberva](https://github.com/mberva)
+* [ptramonti](https://github.com/ptramonti)
+* [Shnoulle](https://github.com/Shnoulle)
 * [stevleibelt](https://github.com/stevleibelt)
 
