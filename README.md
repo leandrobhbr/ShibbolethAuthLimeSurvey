@@ -67,7 +67,12 @@ With this method you will be able to protect only the admin panel, add the follo
 
 ## Development notes
 
-* After code changes, please run `./vendor/bin/rector process`
+* After code changes, please run:
+```bash
+composer check
+./vendor/bin/rector process
+./vendor/bin/php-cs-fixer fix ShibbolethAuthLime.php
+```
 
 ## Links
 
@@ -76,6 +81,7 @@ With this method you will be able to protect only the admin panel, add the follo
 * [leandrobhbr's adaptation for LimeSurvey version 4](https://github.com/leandrobhbr/ShibbolethAuthLimeSurvey)
 * [PHP supported versions](https://www.php.net/supported-versions.php)
 * [Rector documentation](https://getrector.com/documentation)
+* [PHP-CS-Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)
 * [stevleibelt's adaptation for LimeSurvey version 5 and 6](https://github.com/stevleibelt/ShibbolethAuthLimeSurvey)
 
 ## Contributers

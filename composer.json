@@ -1,5 +1,5 @@
 {
-    "name": "stevleibelt/ShibbolethAuthLimeSurvey",
+    "name": "stevleibelt/shibboleth-auth-lime-survey",
     "description": "LimeSurvey plugin that enables Shibboleth authentification",
     "keywords": [
       "limesurvey",
@@ -30,6 +30,7 @@
         "php": "^8.1"
     },
     "require-dev": {
-        "rector/rector": "^1.2"
+        "rector/rector": "^1.2",
+        "friendsofphp/php-cs-fixer": "^3.59"
     }
 }

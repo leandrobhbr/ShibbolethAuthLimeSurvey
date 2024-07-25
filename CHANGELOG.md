@@ -18,7 +18,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed in unreleased
 
-## [1.0.2](https://github.com/stevleibelt/ShibbolethAuthLimeSurvey/tree/1.0.1) - 20240725
+## [1.0.3](https://github.com/stevleibelt/ShibbolethAuthLimeSurvey/tree/1.0.3) - 20240725
+
+### Added in 1.0.3
+
+* Added [php-cs-fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)
+* Removed `composer.lock` from repository
+
+### Changed in 1.0.2
+
+* Changed [ShibbolethAuthLime.php](ShibbolethAuthLime.php) by running `./vendor/bin/php-cs-fixer fix ShibbolethAuthLime.php`
+
+## [1.0.2](https://github.com/stevleibelt/ShibbolethAuthLimeSurvey/tree/1.0.2) - 20240725
 
 ### Added in 1.0.2
 
