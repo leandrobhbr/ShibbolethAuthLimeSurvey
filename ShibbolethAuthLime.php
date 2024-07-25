@@ -77,6 +77,7 @@ class ShibbolethAuthLime extends AuthPluginBase {
 		$authusergivenName = $this->get('authusergivenName');
 		$authusergivenSurname = $this->get('authusergivenSurname');
     $mailattribute = $this->get('mailattribute');
+        $sUser = $this->getUserName();
 
         if(empty($authuserid) && empty($_SERVER[$authuserid])) { return; } // not login by shiboleth
 
