@@ -14,7 +14,7 @@ This plugin was tested with the following versions of LimeSurvey:
 **LimeSurvey: http://www.limesurvey.org/**
 
 ## PREREQUISITES
-* Running installation of LimeSurvey 5+
+* Running installation of LimeSurvey 5 or 6
 * libapache2-mod-shib2 -> Running Shibboleth SP
 * git
 
@@ -69,6 +69,7 @@ With this method you will be able to protect only the admin panel, add the follo
 
 * [atlet's original (?) code for LimeSurvey version 3.4+](https://github.com/atlet/LimeSurvey-ShibbolethAuth)
 * [leandrobhbr's adaptation for LimeSurvey version 4](https://github.com/leandrobhbr/ShibbolethAuthLimeSurvey)
+* [PHP supported versions](https://www.php.net/supported-versions.php)
 * [stevleibelt's adaptation for LimeSurvey version 5 and 6](https://github.com/stevleibelt/ShibbolethAuthLimeSurvey)
 
 ## Contributers

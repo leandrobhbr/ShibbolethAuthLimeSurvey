@@ -18,12 +18,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed in unreleased
 
-## [1.0.0](https://github.com/stevleibelt/ShibbolethAuthLimeSurvey/tree/1.0.0) - 20240725
+## [1.0.1](https://github.com/stevleibelt/ShibbolethAuthLimeSurvey/tree/1.0.1) - 20240725
 
-### Added in 1.0.0
+This is an initial tag. It is started from 1.0.1 to be in line with the version from the [config.xml](config.xml).
+
+### Added in 1.0.1
 
 * Added this changelog
 
-### Changed in 1.0.0
+### Changed in 1.0.1
 
 * Fixed PHP Notice and restored compatibility with LimeSurvey 5 and 6
