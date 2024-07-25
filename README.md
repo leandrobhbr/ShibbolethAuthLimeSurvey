@@ -1,13 +1,20 @@
 # ShibbolethAuthLimeSurvey
 
-This plugin is a copy of code made for previous versions. I adapted it for version 4 of LimeSurvey. Thanks for the source: https://github.com/atlet/LimeSurvey-ShibbolethAuth
+This plugin enables you to use [Shibboleth](https://www.shibboleth.net/) as authentication mechanism in [LimeSurvey](https://www.limesurvey.org).
 
-**LimeSurvey 4+ Shibboleth auth plugin**
+The current changelog can be found [here](CHANGELOG.md).
+
+This plugin was tested with the following versions of LimeSurvey:
+
+* [5.6.68+240625](https://github.com/LimeSurvey/LimeSurvey/tree/5.6.68%2B240625)
+* [6.5.17+240715](https://github.com/LimeSurvey/LimeSurvey/tree/6.5.17%2B240715)
+
+**LimeSurvey 5+ Shibboleth auth plugin**
 
 **LimeSurvey: http://www.limesurvey.org/**
 
 ## PREREQUISITES
-* Running installation of LimeSurvey 4+
+* Running installation of LimeSurvey 5+
 * libapache2-mod-shib2 -> Running Shibboleth SP
 * git
 
@@ -21,7 +28,7 @@ To install this plugin you have to create a folder "ShibbolethAuthLime" into fol
 cd /var/www/limesurvey/plugins
 mkdir ShibbolethAuthLime
 cd ShibbolethAuthLime
-git clone https://github.com/leandrobhbr/LimeSurvey-ShibbolethAuthLime.git .
+git clone https://github.com/stevleibelt/ShibbolethAuthLimeSurvey
 ```
 ## ACTIVATE PLUGIN FROM ADMIN PANEL
 
@@ -57,3 +64,16 @@ With this method you will be able to protect only the admin panel, add the follo
              Require shibboleth
   </Location>
 ```
+
+## Links
+
+* [atlet's original (?) code for LimeSurvey version 3.4+](https://github.com/atlet/LimeSurvey-ShibbolethAuth)
+* [leandrobhbr's adaptation for LimeSurvey version 4](https://github.com/leandrobhbr/ShibbolethAuthLimeSurvey)
+* [stevleibelt's adaptation for LimeSurvey version 5 and 6](https://github.com/stevleibelt/ShibbolethAuthLimeSurvey)
+
+## Contributers
+
+* [atlet](https://github.com/atlet)
+* [leandrobhbr](https://github.com/leandrobhbr)
+* [stevleibelt](https://github.com/stevleibelt)
+
