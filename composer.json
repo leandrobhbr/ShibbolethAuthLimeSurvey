@@ -1,0 +1,36 @@
+{
+    "name": "stevleibelt/shibboleth-auth-lime-survey",
+    "description": "LimeSurvey plugin that enables Shibboleth authentification",
+    "keywords": [
+      "limesurvey",
+      "plugin",
+      "shibboleth",
+      "authentification"
+    ],
+    "authors": [
+      {
+        "name": "atlet",
+        "homepage": "https://github.com/atlet",
+        "role": "Developer"
+      },
+      {
+        "name": "leandrobhbr",
+        "homepage": "https://github.com/leandrobhbr",
+        "role": "Developer"
+      },
+      {
+        "name": "stevleibelt",
+        "homepage": "https://github.com/stevleibelt",
+        "role": "Developer"
+      }
+    ],
+    "type": "library",
+    "license": "GPL-3.0-only",
+    "require": {
+        "php": "^8.1"
+    },
+    "require-dev": {
+        "rector/rector": "^1.2",
+        "friendsofphp/php-cs-fixer": "^3.59"
+    }
+}
