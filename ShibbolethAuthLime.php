@@ -15,49 +15,12 @@ class ShibbolethAuthLime extends AuthPluginBase {
     public $atributi = '';
     public $mail = '';
     public $displayName = '';
-    protected $settings = array(
-            'authuserid' => array(
-            'type' => 'string',
-            'label' => 'Shibboleth attribute of User ID (eg. eduPersonPrincipalName)',
-            'default' => 'eduPersonPrincipalName',
-        ),
-            'authusergivenName' => array(
-            'type' => 'string',
-            'label' => 'Shibboleth attribute of User first name (eg. givenName)',
-            'default' => 'givenName',
-        ),
-            'authusergivenSurname' => array(
-            'type' => 'string',
-            'label' => 'Shibboleth attribute of User surname (eg. sn)',
-            'default' => 'sn',
-        ),
-            'mailattribute' => array(
-            'type' => 'string',
-            'label' => 'Shibboleth attribute of User email address (eg. mail)',
-            'default' => 'mail',
-		),
-            'logoffurl' => array(
-            'type' => 'string',
-            'label' => 'Redirecting url after LogOff',
-            //'default' => 'https://my.example.com/Account/Logoff',
-            'default' => 'https://www.unibg.it',
-		),
-            'is_default' => array(
-            'type' => 'checkbox',
-            'label' => 'Check to make default authentication method (this disable Default LimeSurvey authentification by database)',
-            'default' => false,
-        ),
-            'autocreateuser' => array(
-            'type' => 'checkbox',
-            'label' => 'Automatically create user if not exists',
-            'default' => true,
-        ),
-            'permission_create_survey' => array(
-            'type' => 'checkbox',
-            'label' => 'Permission create survey',
-            'default' => false,
-        )
-    );
+    protected $settings = ['authuserid' => ['type' => 'string', 'label' => 'Shibboleth attribute of User ID (eg. eduPersonPrincipalName)', 'default' => 'eduPersonPrincipalName'], 'authusergivenName' => ['type' => 'string', 'label' => 'Shibboleth attribute of User first name (eg. givenName)', 'default' => 'givenName'], 'authusergivenSurname' => ['type' => 'string', 'label' => 'Shibboleth attribute of User surname (eg. sn)', 'default' => 'sn'], 'mailattribute' => ['type' => 'string', 'label' => 'Shibboleth attribute of User email address (eg. mail)', 'default' => 'mail'], 'logoffurl' => [
+        'type' => 'string',
+        'label' => 'Redirecting url after LogOff',
+        //'default' => 'https://my.example.com/Account/Logoff',
+        'default' => 'https://www.unibg.it',
+    ], 'is_default' => ['type' => 'checkbox', 'label' => 'Check to make default authentication method (this disable Default LimeSurvey authentification by database)', 'default' => false], 'autocreateuser' => ['type' => 'checkbox', 'label' => 'Automatically create user if not exists', 'default' => true], 'permission_create_survey' => ['type' => 'checkbox', 'label' => 'Permission create survey', 'default' => false]];
 
     public function init(){
 		/* only test
@@ -82,8 +45,8 @@ class ShibbolethAuthLime extends AuthPluginBase {
         if(empty($authuserid) && empty($_SERVER[$authuserid])) { return; } // not login by shiboleth
 
          // Possible mapping of users to a different identifier
-         $aUserMappings=$this->api->getConfigKey('auth_webserver_user_map', array());
-         $sUser = isset($aUserMappings[$sUser]) ? $aUserMappings[$sUser] : $_SERVER[$authuserid];
+         $aUserMappings=$this->api->getConfigKey('auth_webserver_user_map', []);
+         $sUser = $aUserMappings[$sUser] ?? $_SERVER[$authuserid];
 
 	 $autocreateuser = ( $autocreateuser === null || trim($autocreateuser) === '' ) ? 'autocreateuser' : $autocreateuser ;
 	 /* autocreate TRUE */
@@ -124,7 +87,7 @@ if($this->get($autocreateuser,null,null,$this->settings['autocreateuser']['defau
         $name = $sUser;
         $email = $this->mail;
         // generate aleatory password
-        $password = date('YmdHis').rand(0,1000);
+        $password = date('YmdHis').random_int(0,1000);
         $oUser = new User;
         $oUser->users_name = $name;
         $oUser->full_name = $name;
@@ -150,7 +113,6 @@ if($this->get($autocreateuser,null,null,$this->settings['autocreateuser']['defau
             $permission->save();
         }
         $this->setAuthSuccess($oUser);
-        return;
     }
 
 	public function afterLogout(){

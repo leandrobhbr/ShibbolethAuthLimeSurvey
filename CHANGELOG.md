@@ -24,6 +24,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 * [.gitignore](.gitignore)
 * [composer.json](composer.json)
+* Added and configured [php rector](https://getrector.com/)
+
+### Changed in 1.0.2
+
+* Changed [ShibbolethAuthLime.php](ShibbolethAuthLime.php) by running `./vendor/bin/rector process`
 
 ## [1.0.1](https://github.com/stevleibelt/ShibbolethAuthLimeSurvey/tree/1.0.1) - 20240725
 

@@ -65,12 +65,17 @@ With this method you will be able to protect only the admin panel, add the follo
   </Location>
 ```
 
+## Development notes
+
+* After code changes, please run `./vendor/bin/rector process`
+
 ## Links
 
 * [atlet's original (?) code for LimeSurvey version 3.4+](https://github.com/atlet/LimeSurvey-ShibbolethAuth)
 * [composer JSON schema documentation](https://getcomposer.org/doc/04-schema.md)
 * [leandrobhbr's adaptation for LimeSurvey version 4](https://github.com/leandrobhbr/ShibbolethAuthLimeSurvey)
 * [PHP supported versions](https://www.php.net/supported-versions.php)
+* [Rector documentation](https://getrector.com/documentation)
 * [stevleibelt's adaptation for LimeSurvey version 5 and 6](https://github.com/stevleibelt/ShibbolethAuthLimeSurvey)
 
 ## Contributers
