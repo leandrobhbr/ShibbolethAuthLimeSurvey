@@ -95,7 +95,7 @@ class ShibbolethAuthLime extends AuthPluginBase
         $password = date('YmdHis').random_int(0, 1000);
         $oUser = new User();
         $oUser->users_name = $name;
-        $oUser->full_name = $name;
+        $oUser->full_name = $this->displayName;
         $oUser->email = $email;
         $oUser->parent_id = 1;
         $oUser->created = date('Y-m-d H:i:s');
