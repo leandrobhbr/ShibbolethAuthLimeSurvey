@@ -19,6 +19,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed in unreleased
 
+## [1.1.0] - 20260710
+
+### Added in 1.1.0
+
+* Added LimeSurvey 7 to the compatibility list in [config.xml](config.xml) (compatibility with 5 and 6 is kept)
+
+### Changed in 1.1.0
+
+* Fixed PHP 8 warnings in [ShibbolethAuthLime.php](ShibbolethAuthLime.php):
+  * `beforeLogin()` now returns early when the Shibboleth user id attribute is missing (`&&` changed to `||`), instead of proceeding with an undefined `$_SERVER` key
+  * Removed usage of the undefined variable `$autocreateuser` (the setting key `'autocreateuser'` is now used directly)
+  * Guarded `$_SERVER` attribute reads with the null coalescing operator (`?? ''`)
+* Synced the plugin version in [config.xml](config.xml) (was still 1.0.2 while the changelog was at 1.0.3)
+* Tested against LimeSurvey 7.0.4 and 6.x via Docker (`martialblog/limesurvey`); validation against a production Shibboleth IdP is still pending
+
 ## [1.0.3](https://github.com/stevleibelt/ShibbolethAuthLimeSurvey/tree/1.0.3) - 20240725
 
 ### Added in 1.0.3

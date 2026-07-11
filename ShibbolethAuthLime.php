@@ -44,7 +44,7 @@ class ShibbolethAuthLime extends AuthPluginBase
         $mailattribute = $this->get('mailattribute');
         $sUser = $this->getUserName();
 
-        if(empty($authuserid) && empty($_SERVER[$authuserid])) {
+        if (empty($authuserid) || empty($_SERVER[$authuserid])) {
             return;
         } // not login by shiboleth
 
@@ -52,20 +52,19 @@ class ShibbolethAuthLime extends AuthPluginBase
         $aUserMappings = $this->api->getConfigKey('auth_webserver_user_map', []);
         $sUser = $aUserMappings[$sUser] ?? $_SERVER[$authuserid];
 
-        $autocreateuser = ($autocreateuser === null || trim($autocreateuser) === '') ? 'autocreateuser' : $autocreateuser ;
         /* autocreate TRUE */
-        if($this->get($autocreateuser, null, null, $this->settings['autocreateuser']['default'])) {
+        if ($this->get('autocreateuser', null, null, $this->settings['autocreateuser']['default'])) {
             $this->setUsername($sUser);
-            $this->displayName = $_SERVER[$authusergivenName].' '.$_SERVER[$authusergivenSurname];
-            $this->mail = ($_SERVER[$mailattribute] && $_SERVER[$mailattribute] != '') ? $_SERVER[$mailattribute] : 'noreply@unibg.it';
+            $this->displayName = ($_SERVER[$authusergivenName] ?? '') . ' ' . ($_SERVER[$authusergivenSurname] ?? '');
+            $this->mail = empty($_SERVER[$mailattribute]) ? 'noreply@unibg.it' : $_SERVER[$mailattribute];
             $this->setAuthPlugin(); // This plugin handles authentication, halt further execution of auth plugins
-        } elseif($this->get('is_default', null, null, $this->settings['is_default']['default'])) {
+        } elseif ($this->get('is_default', null, null, $this->settings['is_default']['default'])) {
             throw new CHttpException(401, 'Wrong credentials for LimeSurvey administration: "' . $sUser . '".');
 
             /* autocreate FALSE */
         } else {
             $this->setUsername($sUser);
-            $this->displayName = $_SERVER[$authusergivenName].' '.$_SERVER[$authusergivenSurname];
+            $this->displayName = ($_SERVER[$authusergivenName] ?? '') . ' ' . ($_SERVER[$authusergivenSurname] ?? '');
             $this->setAuthPlugin(); // This plugin handles authentication, halt further execution of auth plugins
         }
 
@@ -83,7 +82,7 @@ class ShibbolethAuthLime extends AuthPluginBase
         fclose($fd);
         */
         // The user alredy exists - can login with success
-        if(!empty($oUser)) {
+        if (!empty($oUser)) {
             $this->setAuthSuccess($oUser);
             return;
         }
@@ -92,7 +91,7 @@ class ShibbolethAuthLime extends AuthPluginBase
         $name = $sUser;
         $email = $this->mail;
         // generate aleatory password
-        $password = date('YmdHis').random_int(0, 1000);
+        $password = date('YmdHis') . random_int(0, 1000);
         $oUser = new User();
         $oUser->users_name = $name;
         $oUser->full_name = $this->displayName;

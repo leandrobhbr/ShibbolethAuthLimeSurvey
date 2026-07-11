@@ -8,13 +8,15 @@ This plugin was tested with the following versions of LimeSurvey:
 
 * [5.6.68+240625](https://github.com/LimeSurvey/LimeSurvey/tree/5.6.68%2B240625)
 * [6.5.17+240715](https://github.com/LimeSurvey/LimeSurvey/tree/6.5.17%2B240715)
+* 7.0.4+260620
 
 **LimeSurvey 5+ Shibboleth auth plugin**
 
 **LimeSurvey: http://www.limesurvey.org/**
 
 ## PREREQUISITES
-* Running installation of LimeSurvey 5 or 6
+* Running installation of LimeSurvey 5, 6 or 7
+* PHP 8.1.29 or newer is required by LimeSurvey 7
 * libapache2-mod-shib2 -> Running Shibboleth SP
 * git
 
